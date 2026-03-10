@@ -1,0 +1,600 @@
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { ArrowRight, Facebook, Github, Linkedin, Mail, Code, Briefcase, Award, Download, Quote, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
+
+export default function Home() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  // Hardcoded projects - no backend needed
+  const projects = [
+    {
+      id: 1,
+      title: 'Portfolio Website',
+      description: 'A modern, responsive portfolio website built with React and Tailwind CSS, featuring dark mode and smooth animations.',
+      technologies: ['React', 'Tailwind CSS', 'Framer Motion'],
+      github_url: 'https://github.com',
+      live_url: 'https://example.com',
+      featured: true,
+    },
+    {
+      id: 2,
+      title: 'E-Commerce Platform',
+      description: 'Full-stack e-commerce application with user authentication, product management, and payment integration.',
+      technologies: ['React', 'Laravel', 'MySQL'],
+      github_url: 'https://github.com',
+      live_url: 'https://example.com',
+      featured: true,
+    },
+    {
+      id: 3,
+      title: 'Task Management App',
+      description: 'A collaborative task management application with real-time updates and team collaboration features.',
+      technologies: ['React', 'Firebase', 'JavaScript'],
+      github_url: 'https://github.com',
+      live_url: 'https://example.com',
+      featured: false,
+    },
+  ]
+
+  // Hardcoded skills - no backend needed
+  const skills = [
+    // Frontend
+    { id: 1, name: 'HTML', proficiency: 90, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+    { id: 2, name: 'CSS', proficiency: 85, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+    { id: 3, name: 'JavaScript', proficiency: 88, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { id: 4, name: 'React', proficiency: 85, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    // Backend
+    { id: 5, name: 'Laravel', proficiency: 80, category: 'Backend', logo: 'https://cdn.simpleicons.org/laravel/FF2D20' },
+    { id: 6, name: 'MySQL', proficiency: 82, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+    { id: 7, name: 'Firebase', proficiency: 75, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
+    { id: 8, name: 'C', proficiency: 70, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
+    { id: 9, name: 'C++', proficiency: 75, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
+    { id: 10, name: 'C#', proficiency: 78, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
+    { id: 11, name: 'Java', proficiency: 80, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+    { id: 12, name: 'Python', proficiency: 85, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    // Design
+    { id: 13, name: 'Figma', proficiency: 85, category: 'Design', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+    { id: 14, name: 'Canva', proficiency: 80, category: 'Design', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/canva.svg' },
+    { id: 15, name: 'Photoshop', proficiency: 75, category: 'Design', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg' },
+  ]
+
+  // Group skills by category
+  const skillsByCategory = skills.reduce((acc, skill) => {
+    if (!acc[skill.category]) {
+      acc[skill.category] = []
+    }
+    acc[skill.category].push(skill)
+    return acc
+  }, {})
+
+  const categories = ['Frontend', 'Backend', 'Design']
+
+  // Gallery images - add your image URLs here
+  const galleryImages = [
+    {
+      id: 1,
+      src: '/Highest_number_of_conversion.png',
+      title: 'Highest Number of Conversion',
+      alt: 'Gallery Image 1',
+    },
+    {
+      id: 2,
+      url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
+      title: 'Project Screenshot 2',
+      alt: 'Gallery Image 2',
+    },
+    {
+      id: 3,
+      url: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800',
+      title: 'Project Screenshot 3',
+      alt: 'Gallery Image 3',
+    },
+    {
+      id: 4,
+      url: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
+      title: 'Project Screenshot 4',
+      alt: 'Gallery Image 4',
+    },
+  ]
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
+  }
+
+  const goToImage = (index) => {
+    setCurrentImageIndex(index)
+  }
+
+  // Auto-play carousel (optional)
+  useEffect(() => {
+    if (galleryImages.length === 0) return
+    
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length)
+    }, 5000) // Change image every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [galleryImages.length])
+
+  // Hardcoded testimonials - synced with About page
+  const testimonials = [
+    {
+      id: 1,
+      name: 'John Doe',
+      position: 'Project Manager',
+      company: 'Tech Solutions Inc.',
+      content: 'Kenrick is an exceptional developer who consistently delivers high-quality work. His attention to detail and problem-solving skills are outstanding.',
+      rating: 5,
+    },
+    {
+      id: 2,
+      name: 'Sarah Johnson',
+      position: 'Lead Designer',
+      company: 'Creative Agency',
+      content: 'Working with Kenrick was a pleasure. He understands design requirements perfectly and implements them flawlessly. Highly recommended!',
+      rating: 5,
+    },
+    {
+      id: 3,
+      name: 'Michael Chen',
+      position: 'CEO',
+      company: 'StartupXYZ',
+      content: 'Kenrick helped us build our MVP from scratch. His technical expertise and dedication to the project were instrumental in our success.',
+      rating: 5,
+    },
+  ]
+
+  // Show only first 3 projects on homepage
+  const featuredProjects = projects.slice(0, 3)
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  }
+
+  return (
+    <div className="pt-16">
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center px-4">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="max-w-4xl mx-auto text-center"
+        >
+          {/* Profile Picture */}
+          <motion.div
+            variants={itemVariants}
+            className="mb-8 flex justify-center"
+          >
+            <div className="relative">
+              <motion.img
+                src="/profile.png"
+                alt="Kenrick R. Labuca"
+                className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-primary-500 shadow-2xl"
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/256?text=Your+Photo'
+                }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              />
+              <motion.div
+                className="absolute inset-0 rounded-full border-4 border-primary-500 opacity-20"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.2, 0.3, 0.2],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </div>
+          </motion.div>
+          <motion.h1
+            variants={itemVariants}
+            className="text-5xl md:text-7xl font-bold mb-6"
+          >
+            <span className="gradient-text">Hi, I'm Ken</span>
+            <br />
+            <span className="text-gray-800 dark:text-gray-200">
+              Full Stack Developer
+            </span>
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8"
+          >
+            Building modern web applications with React & Laravel
+          </motion.p>
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-wrap justify-center gap-4 mb-12"
+          >
+            <a
+              href="https://facebook.com/imkenricklabuca"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 bg-[#1877F2] text-white rounded-lg hover:scale-105 hover:bg-[#166FE5] transition-all"
+            >
+              <Facebook className="w-5 h-5" />
+              Facebook
+            </a>
+
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:scale-105 transition-transform"
+            >
+              <Github className="w-5 h-5" />
+              GitHub
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:scale-105 transition-transform"
+            >
+              <Linkedin className="w-5 h-5" />
+              LinkedIn
+            </a>
+            <a
+              href="mailto:kenricklabuca.official@gmail.com"
+              className="flex items-center gap-2 px-6 py-3 bg-primary-500 text-white rounded-lg hover:scale-105 transition-transform"
+            >
+              <Mail className="w-5 h-5" />
+              Contact
+            </a>
+            <a
+              href="/resume.pdf"
+              download
+              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:scale-105 transition-transform"
+            >
+              <Download className="w-5 h-5" />
+              Download Resume
+            </a>
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-purple-600 text-white rounded-lg font-semibold hover:scale-105 transition-transform"
+            >
+              View My Work
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Tech Stack Section */}
+      <section className="py-20 px-4 bg-gray-50 dark:bg-gray-800/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-bold mb-2">
+              Tech Stack
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400">
+              Tools I use to design, build, and ship modern web experiences.
+            </p>
+          </motion.div>
+          
+          <div className="space-y-6">
+            {categories.map((category, categoryIndex) => (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: categoryIndex * 0.1 }}
+                className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800 bg-gradient-to-r from-primary-500/10 to-purple-500/10">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                    {category}
+                  </h3>
+                </div>
+                <div className="px-6 py-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {skillsByCategory[category]?.map((skill, index) => (
+                    <motion.div
+                      key={skill.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: (categoryIndex * 0.05) + (index * 0.03) }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-3 py-2 hover:border-primary-500 hover:bg-primary-50/60 dark:hover:bg-primary-900/30 transition-all cursor-default"
+                    >
+                      {skill.logo ? (
+                        <div className="w-6 h-6 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center flex-shrink-0">
+                          <img
+                            src={skill.logo}
+                            alt={skill.name}
+                            className="w-4 h-4 object-contain"
+                            onError={(e) => {
+                              e.target.style.display = 'none'
+                              if (e.target.parentElement?.nextSibling) {
+                                e.target.parentElement.nextSibling.style.display = 'inline'
+                              }
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <span className="text-base flex-shrink-0">{skill.icon || '💻'}</span>
+                      )}
+                      <span className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate">
+                        {skill.name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl font-bold text-center mb-12 flex items-center justify-center gap-3"
+          >
+            <Quote className="w-10 h-10 text-primary-500" />
+            Testimonials
+          </motion.h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <span key={i} className="text-yellow-400 text-lg">★</span>
+                  ))}
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 mb-6 italic">
+                  "{testimonial.content}"
+                </p>
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100">
+                    {testimonial.name}
+                  </h4>
+                  <p className="text-sm text-primary-500">
+                    {testimonial.position}
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {testimonial.company}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="py-20 px-4 bg-gray-50 dark:bg-gray-800/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl font-bold text-center mb-12 flex items-center justify-center gap-3"
+          >
+            <ImageIcon className="w-10 h-10 text-primary-500" />
+            Gallery
+          </motion.h2>
+          
+                <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Carousel Container */}
+            <div className="relative overflow-hidden rounded-lg shadow-2xl bg-gray-100 dark:bg-gray-900">
+              {/* Images */}
+              <div className="relative h-96 md:h-[600px] flex items-center justify-center">
+                {galleryImages.map((image, index) => (
+                    <motion.div
+                    key={image.id}
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{
+                      opacity: index === currentImageIndex ? 1 : 0,
+                      x: index === currentImageIndex ? 0 : index > currentImageIndex ? 100 : -100,
+                    }}
+                    transition={{ duration: 0.5 }}
+                    className={`absolute inset-0 flex items-center justify-center ${
+                      index === currentImageIndex ? 'z-10' : 'z-0'
+                    }`}
+                  >
+                    <img
+                      src={image.url || image.src}
+                      alt={image.alt}
+                      className="max-w-full max-h-full w-auto h-auto object-contain"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/800x500?text=Image+Not+Found'
+                      }}
+                    />
+                    {/* Title overlay - positioned at bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-4">
+                      <h3 className="text-xl md:text-2xl font-bold text-white text-center">{image.title}</h3>
+                  </div>
+                </motion.div>
+                ))}
+              </div>
+
+              {/* Navigation Buttons */}
+              <button
+                onClick={prevImage}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-800 transition-all hover:scale-110"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-6 h-6 text-gray-900 dark:text-gray-100" />
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-800 transition-all hover:scale-110"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-6 h-6 text-gray-900 dark:text-gray-100" />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {galleryImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToImage(index)}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      index === currentImageIndex
+                        ? 'bg-white w-8'
+                        : 'bg-white/50 hover:bg-white/75'
+                    }`}
+                    aria-label={`Go to image ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Thumbnail Navigation (Optional) */}
+            <div className="mt-6 flex gap-3 justify-center overflow-x-auto pb-2">
+              {galleryImages.map((image, index) => (
+                <button
+                  key={image.id}
+                  onClick={() => goToImage(index)}
+                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                    index === currentImageIndex
+                      ? 'border-primary-500 scale-110'
+                      : 'border-transparent opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  <img
+                    src={image.url || image.src}
+                    alt={image.alt}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Projects */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex justify-between items-center mb-12"
+          >
+            <h2 className="text-4xl font-bold">Featured Projects</h2>
+            <Link
+              to="/projects"
+              className="text-primary-500 hover:text-primary-600 flex items-center gap-2"
+            >
+              View All
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
+            <div className="grid md:grid-cols-3 gap-8">
+            {featuredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                >
+                  {project.image && (
+                    <div className="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                      <Code className="w-16 h-16 text-gray-400" />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.technologies?.slice(0, 3).map((tech, i) => (
+                        <span
+                          key={i}
+                          className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-xs rounded"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex gap-4">
+                      {project.github_url && (
+                        <a
+                          href={project.github_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary-500 hover:text-primary-600"
+                        >
+                          <Github className="w-5 h-5" />
+                        </a>
+                      )}
+                      {project.live_url && (
+                        <a
+                          href={project.live_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary-500 hover:text-primary-600"
+                        >
+                          <ArrowRight className="w-5 h-5" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+        </div>
+      </section>
+    </div>
+  )
+}
