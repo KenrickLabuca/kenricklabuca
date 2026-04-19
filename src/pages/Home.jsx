@@ -74,7 +74,7 @@ export default function Home() {
   const galleryImages = [
     {
       id: 1,
-      src: '/Highest_number_of_conversion.png',
+      src: '/images/Highest_number_of_conversion.png',
       title: 'Highest Number of Conversion',
       alt: 'Gallery Image 1',
     },
@@ -190,7 +190,7 @@ export default function Home() {
           >
             <div className="relative">
               <motion.img
-                src="/profile.png"
+                src="/images/profile.png"
                 alt="Kenrick R. Labuca"
                 className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-primary-500 shadow-2xl"
                 onError={(e) => {
