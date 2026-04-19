@@ -227,7 +227,7 @@ export default function Home() {
             variants={itemVariants}
             className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8"
           >
-            Building modern web applications with React & Laravel
+            Turning ideas into reality with code. I build modern web applications that are fast, responsive, and user-friendly.
           </motion.p>
           <motion.div
             variants={itemVariants}
