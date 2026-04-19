@@ -269,7 +269,7 @@ export default function Home() {
               Contact
             </a>
             <a
-              href="/Kenrick_Labuca_Resume.pdf"
+              href="/pdf/Kenrick_Labuca_Resume.pdf"
               download
               className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:scale-105 transition-transform"
             >
