@@ -74,7 +74,7 @@ export default function Home() {
   const galleryImages = [
     {
       id: 1,
-      src: '/Highest_number_of_conversion.png',
+      src: '/images/Highest_number_of_conversion.png',
       title: 'Highest Number of Conversion',
       alt: 'Gallery Image 1',
     },
@@ -190,7 +190,7 @@ export default function Home() {
           >
             <div className="relative">
               <motion.img
-                src="/profile.png"
+                src="/images/profile.png"
                 alt="Kenrick R. Labuca"
                 className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-primary-500 shadow-2xl"
                 onError={(e) => {
@@ -227,7 +227,7 @@ export default function Home() {
             variants={itemVariants}
             className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8"
           >
-            Building modern web applications with React & Laravel
+            Turning ideas into reality with code. I build modern web applications that are fast, responsive, and user-friendly.
           </motion.p>
           <motion.div
             variants={itemVariants}
@@ -269,7 +269,7 @@ export default function Home() {
               Contact
             </a>
             <a
-              href="/resume.pdf"
+              href="pdf/Kenrick_Labuca_Resume.pdf"
               download
               className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:scale-105 transition-transform"
             >

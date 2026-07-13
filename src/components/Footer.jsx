@@ -12,7 +12,7 @@ export default function Footer() {
           {/* Brand Section */}
           <div>
             <h3 className="text-2xl font-bold gradient-text mb-4">
-              Kenrick R. Labuca Portfolio
+              Kenrick Portfolio
             </h3>
             <p className="text-gray-400 mb-4">
               Full Stack Developer passionate about building modern web applications
@@ -112,7 +112,7 @@ export default function Footer() {
               </li>
               <li className="pt-2">
                 <a
-                  href="/resume.pdf"
+                  href="/pdf/Kenrick_Labuca_Resume.pdf"
                   download
                   className="text-primary-500 hover:text-primary-400 transition-colors inline-flex items-center gap-1"
                 >

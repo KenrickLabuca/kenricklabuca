@@ -124,7 +124,7 @@ export default function Contact() {
 
             {/* Contact Form */}
             <motion.div variants={itemVariants}>
-              <form action="https://formspree.io/f/mreabpad" method="POST" className="space-y-6">
+              <form action="https://formspree.io/f/mbdalkov" method="POST" className="space-y-6">
                 <div>
                   <label
                     htmlFor="name"
