@@ -1,7 +1,25 @@
 import { motion } from 'framer-motion'
-import { Briefcase, GraduationCap, Award, FileText } from 'lucide-react'
+import { Briefcase, Award, FileText, Trophy, ListChecks, Globe } from 'lucide-react'
 
 export default function About() {
+  const highlights = [
+    {
+      id: 1,
+      icon: Trophy,
+      text: 'Top Performer in ~9 monthly company performance award cycles',
+    },
+    {
+      id: 2,
+      icon: ListChecks,
+      text: 'Implemented and converted 440+ website forms',
+    },
+    {
+      id: 3,
+      icon: Globe,
+      text: 'Supported hundreds of production websites',
+    },
+  ]
+
   // Hardcoded experiences - no backend needed
   const experiences = [
     {
@@ -124,6 +142,37 @@ export default function About() {
             I love building scalable applications and solving complex problems.
           </p>
         </motion.div>
+
+        {/* Highlights */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="mb-16"
+        >
+          <div className="flex flex-col gap-3">
+            {highlights.map((item, index) => {
+              const Icon = item.icon
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + index * 0.08 }}
+                  className="flex items-center gap-4 rounded-2xl border border-[#d8dbf5] bg-[#f0f2ff] px-5 py-4 dark:border-gray-700 dark:bg-gray-800"
+                >
+                  <Icon
+                    className="h-6 w-6 shrink-0 text-[#4f46a5] dark:text-primary-400"
+                    strokeWidth={1.75}
+                  />
+                  <p className="text-left text-base leading-snug text-[#2d325a] dark:text-gray-100">
+                    {item.text}
+                  </p>
+                </motion.div>
+              )
+            })}
+          </div>
+        </motion.section>
 
         {/* Experience Section */}
         <motion.section
