@@ -461,36 +461,12 @@ export default function Home() {
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 md:w-32 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-32 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent" />
 
-          {/* Row 1 - scrolls left */}
-          <div className="mb-4 flex overflow-hidden">
+          {/* Single row - scrolls left */}
+          <div className="flex overflow-hidden">
             <div className="animate-marquee flex w-max gap-4 pr-4">
               {[...marqueeGalleryImages, ...marqueeGalleryImages].map((image, index) => (
                 <figure
-                  key={`gallery-row1-${image.id}-${index}`}
-                  className="relative w-[260px] md:w-[320px] h-44 md:h-52 shrink-0 overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md"
-                >
-                  <img
-                    src={image.url || image.src}
-                    alt={image.alt}
-                    className="h-full w-full object-cover"
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/320x208?text=Image+Not+Found'
-                    }}
-                  />
-                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 py-2">
-                    <p className="text-sm font-semibold text-white truncate">{image.title}</p>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-
-          {/* Row 2 - scrolls right */}
-          <div className="flex overflow-hidden">
-            <div className="animate-marquee-reverse flex w-max gap-4 pr-4">
-              {[...marqueeGalleryImages, ...marqueeGalleryImages].map((image, index) => (
-                <figure
-                  key={`gallery-row2-${image.id}-${index}`}
+                  key={`gallery-${image.id}-${index}`}
                   className="relative w-[260px] md:w-[320px] h-44 md:h-52 shrink-0 overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md"
                 >
                   <img
