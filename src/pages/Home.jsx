@@ -4,7 +4,6 @@ import { ArrowRight, Facebook, Github, Linkedin, Mail, Code, Briefcase, Award, D
 import { Link } from 'react-router-dom'
 
 export default function Home() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0)
   const [isTestimonialPaused, setIsTestimonialPaused] = useState(false)
 
@@ -100,29 +99,6 @@ export default function Home() {
     },
   ]
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length)
-  }
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
-  }
-
-  const goToImage = (index) => {
-    setCurrentImageIndex(index)
-  }
-
-  // Auto-play carousel (optional)
-  useEffect(() => {
-    if (galleryImages.length === 0) return
-    
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length)
-    }, 5000) // Change image every 5 seconds
-
-    return () => clearInterval(interval)
-  }, [galleryImages.length])
-
   // Hardcoded testimonials - synced with About page
   const testimonials = [
     {
@@ -169,6 +145,9 @@ export default function Home() {
 
     return () => clearInterval(interval)
   }, [testimonials.length, isTestimonialPaused])
+
+  // Duplicate gallery images for seamless infinite marquee
+  const marqueeGalleryImages = [...galleryImages, ...galleryImages, ...galleryImages]
 
   // Show only first 3 projects on homepage
   const featuredProjects = projects.slice(0, 3)
@@ -463,112 +442,72 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section className="py-20 px-4 bg-gray-50 dark:bg-gray-800/50">
-        <div className="max-w-6xl mx-auto">
+      {/* Gallery Section - React.dev style infinite marquee */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-800/50 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12 flex items-center justify-center gap-3"
+            className="text-4xl font-bold text-center flex items-center justify-center gap-3"
           >
             <ImageIcon className="w-10 h-10 text-primary-500" />
             Gallery
           </motion.h2>
-          
-                <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-            className="relative"
-          >
-            {/* Carousel Container */}
-            <div className="relative overflow-hidden rounded-lg shadow-2xl bg-gray-100 dark:bg-gray-900">
-              {/* Images */}
-              <div className="relative h-96 md:h-[600px] flex items-center justify-center">
-                {galleryImages.map((image, index) => (
-                    <motion.div
-                    key={image.id}
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{
-                      opacity: index === currentImageIndex ? 1 : 0,
-                      x: index === currentImageIndex ? 0 : index > currentImageIndex ? 100 : -100,
-                    }}
-                    transition={{ duration: 0.5 }}
-                    className={`absolute inset-0 flex items-center justify-center ${
-                      index === currentImageIndex ? 'z-10' : 'z-0'
-                    }`}
-                  >
-                    <img
-                      src={image.url || image.src}
-                      alt={image.alt}
-                      className="max-w-full max-h-full w-auto h-auto object-contain"
-                      onError={(e) => {
-                        e.target.src = 'https://via.placeholder.com/800x500?text=Image+Not+Found'
-                      }}
-                    />
-                    {/* Title overlay - positioned at bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-4">
-                      <h3 className="text-xl md:text-2xl font-bold text-white text-center">{image.title}</h3>
-                  </div>
-                </motion.div>
-                ))}
-              </div>
+        </div>
 
-              {/* Navigation Buttons */}
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-800 transition-all hover:scale-110"
-                aria-label="Previous image"
-              >
-                <ChevronLeft className="w-6 h-6 text-gray-900 dark:text-gray-100" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-800 transition-all hover:scale-110"
-                aria-label="Next image"
-              >
-                <ChevronRight className="w-6 h-6 text-gray-900 dark:text-gray-100" />
-              </button>
+        <div className="group relative">
+          {/* Edge fades */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 md:w-32 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-32 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent" />
 
-              {/* Dots Indicator */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                {galleryImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToImage(index)}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      index === currentImageIndex
-                        ? 'bg-white w-8'
-                        : 'bg-white/50 hover:bg-white/75'
-                    }`}
-                    aria-label={`Go to image ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Thumbnail Navigation (Optional) */}
-            <div className="mt-6 flex gap-3 justify-center overflow-x-auto pb-2">
-              {galleryImages.map((image, index) => (
-                <button
-                  key={image.id}
-                  onClick={() => goToImage(index)}
-                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
-                    index === currentImageIndex
-                      ? 'border-primary-500 scale-110'
-                      : 'border-transparent opacity-60 hover:opacity-100'
-                  }`}
+          {/* Row 1 - scrolls left */}
+          <div className="mb-4 flex overflow-hidden">
+            <div className="animate-marquee flex w-max gap-4 pr-4">
+              {[...marqueeGalleryImages, ...marqueeGalleryImages].map((image, index) => (
+                <figure
+                  key={`gallery-row1-${image.id}-${index}`}
+                  className="relative w-[260px] md:w-[320px] h-44 md:h-52 shrink-0 overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md"
                 >
                   <img
                     src={image.url || image.src}
                     alt={image.alt}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/320x208?text=Image+Not+Found'
+                    }}
                   />
-                </button>
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 py-2">
+                    <p className="text-sm font-semibold text-white truncate">{image.title}</p>
+                  </figcaption>
+                </figure>
               ))}
             </div>
-          </motion.div>
+          </div>
+
+          {/* Row 2 - scrolls right */}
+          <div className="flex overflow-hidden">
+            <div className="animate-marquee-reverse flex w-max gap-4 pr-4">
+              {[...marqueeGalleryImages, ...marqueeGalleryImages].map((image, index) => (
+                <figure
+                  key={`gallery-row2-${image.id}-${index}`}
+                  className="relative w-[260px] md:w-[320px] h-44 md:h-52 shrink-0 overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md"
+                >
+                  <img
+                    src={image.url || image.src}
+                    alt={image.alt}
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/320x208?text=Image+Not+Found'
+                    }}
+                  />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 py-2">
+                    <p className="text-sm font-semibold text-white truncate">{image.title}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
