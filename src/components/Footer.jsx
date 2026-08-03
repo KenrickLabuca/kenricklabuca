@@ -13,9 +13,9 @@ export default function Footer() {
           <div>
             <Link to="/" className="inline-block mb-4" aria-label="Go to home">
               <img
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt="Ken"
-                className="h-10 w-auto rounded-md object-contain bg-black"
+                className="h-10 w-auto rounded-md object-contain"
               />
             </Link>
             <p className="text-gray-400 mb-4">

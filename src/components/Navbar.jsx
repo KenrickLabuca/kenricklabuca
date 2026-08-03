@@ -22,9 +22,9 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center shrink-0" aria-label="Go to home">
             <img
-              src="/images/logo.png"
+              src="/images/logo.svg"
               alt="Ken"
-              className="h-9 md:h-10 w-auto rounded-md object-contain bg-black"
+              className="h-9 md:h-10 w-auto rounded-md object-contain"
             />
           </Link>
 
