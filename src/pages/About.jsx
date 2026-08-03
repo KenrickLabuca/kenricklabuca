@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Briefcase, Award, FileText, Trophy, ListChecks, Globe } from 'lucide-react'
+import { Briefcase, Award, FileText, Trophy, ListChecks, Globe, Wrench } from 'lucide-react'
 
 export default function About() {
   const highlights = [
@@ -81,6 +81,35 @@ export default function About() {
   }, {})
 
   const categories = ['Frontend', 'Backend', 'Design']
+
+  const supportingTools = [
+    {
+      id: 1,
+      name: 'Visual Studio Code',
+      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg',
+    },
+    {
+      id: 2,
+      name: 'Cursor AI',
+      logo: 'https://cdn.simpleicons.org/cursor/000000',
+    },
+    {
+      id: 3,
+      name: 'ChatGPT',
+      logo: 'https://cdn.simpleicons.org/openai/412991',
+    },
+    {
+      id: 4,
+      name: 'Git',
+      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
+      badge: 'BASIC',
+    },
+    {
+      id: 5,
+      name: 'XAMPP',
+      logo: 'https://cdn.simpleicons.org/xampp/FB7A24',
+    },
+  ]
 
   // Hardcoded certificates
   const certificates = [
@@ -352,6 +381,60 @@ export default function About() {
                 </div>
               </motion.div>
             ))}
+
+            {/* Supporting Tools */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden"
+            >
+              <div className="px-6 py-5">
+                <div className="flex items-start gap-3 mb-5">
+                  <div className="mt-0.5 p-2 rounded-lg bg-purple-100 dark:bg-purple-900/40">
+                    <Wrench className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                      Supporting Tools
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      Editors, AI helpers, and local tools I lean on while building.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  {supportingTools.map((tool, index) => (
+                    <motion.div
+                      key={tool.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.85 + index * 0.05 }}
+                      whileHover={{ y: -2 }}
+                      className="inline-flex items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 px-3 py-2"
+                    >
+                      <img
+                        src={tool.logo}
+                        alt={tool.name}
+                        className="w-4 h-4 object-contain"
+                        onError={(e) => {
+                          e.target.style.display = 'none'
+                        }}
+                      />
+                      <span className="text-sm font-medium text-gray-800 dark:text-gray-100">
+                        {tool.name}
+                      </span>
+                      {tool.badge && (
+                        <span className="ml-1 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">
+                          {tool.badge}
+                        </span>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </motion.section>
       </div>
