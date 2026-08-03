@@ -126,7 +126,7 @@ export default function About() {
             className="mb-8 flex justify-center"
           >
             <img
-              src="/profile.png"
+              src="/images/profile.png"
               alt="Kenrick R. Labuca"
               className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-primary-500 shadow-xl"
               onError={(e) => {
