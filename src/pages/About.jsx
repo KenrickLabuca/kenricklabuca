@@ -111,7 +111,6 @@ export default function About() {
       id: 4,
       name: 'Git',
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
-      badge: 'BASIC',
     },
     {
       id: 5,
