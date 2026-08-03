@@ -57,10 +57,13 @@ export default function About() {
     { id: 2, name: 'CSS', proficiency: 85, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
     { id: 3, name: 'JavaScript', proficiency: 88, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
     { id: 4, name: 'React', proficiency: 85, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { id: 16, name: 'Tailwind CSS', proficiency: 88, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+    { id: 17, name: 'WordPress', proficiency: 90, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg' },
     // Backend
     { id: 5, name: 'Laravel', proficiency: 80, category: 'Backend', logo: 'https://cdn.simpleicons.org/laravel/FF2D20' },
     { id: 6, name: 'MySQL', proficiency: 82, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
     { id: 7, name: 'Firebase', proficiency: 75, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
+    { id: 18, name: 'Amazon S3', proficiency: 75, category: 'Backend', logo: 'https://cdn.simpleicons.org/amazons3/569A31' },
     { id: 8, name: 'C', proficiency: 70, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
     { id: 9, name: 'C++', proficiency: 75, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
     { id: 10, name: 'C#', proficiency: 78, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
@@ -100,6 +103,11 @@ export default function About() {
       logo: 'https://cdn.simpleicons.org/openai/412991',
     },
     {
+      id: 6,
+      name: 'Gemini',
+      logo: 'https://cdn.simpleicons.org/googlegemini/8E75B2',
+    },
+    {
       id: 4,
       name: 'Git',
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
@@ -109,6 +117,21 @@ export default function About() {
       id: 5,
       name: 'XAMPP',
       logo: 'https://cdn.simpleicons.org/xampp/FB7A24',
+    },
+    {
+      id: 7,
+      name: 'Vercel',
+      logo: 'https://cdn.simpleicons.org/vercel/000000',
+    },
+    {
+      id: 8,
+      name: 'HubSpot',
+      logo: 'https://cdn.simpleicons.org/hubspot/FF7A59',
+    },
+    {
+      id: 9,
+      name: 'Formspree',
+      logo: 'https://cdn.simpleicons.org/formspree/E51262',
     },
   ]
 
