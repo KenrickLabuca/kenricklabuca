@@ -11,9 +11,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand Section */}
           <div>
-            <h3 className="text-2xl font-bold gradient-text mb-4">
-              Kenrick Portfolio
-            </h3>
+            <Link to="/" className="inline-block mb-4" aria-label="Go to home">
+              <img
+                src="/images/logo.png"
+                alt="Ken"
+                className="h-10 w-auto rounded-md object-contain bg-black"
+              />
+            </Link>
             <p className="text-gray-400 mb-4">
               Full Stack Developer passionate about building modern web applications
               and solving complex problems.
