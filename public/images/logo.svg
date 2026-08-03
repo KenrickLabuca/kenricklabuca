@@ -1,5 +1,17 @@
 ﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" role="img" aria-label="kkn">
-  <text x="110" y="42" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700">
-    <tspan fill="#0ea5e9">&lt;</tspan><tspan fill="#0284c7">kkn/</tspan><tspan fill="#0ea5e9">&gt;</tspan>
-  </text>
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+  </defs>
+  <text
+    x="110"
+    y="42"
+    text-anchor="middle"
+    font-family="Segoe UI, Arial, sans-serif"
+    font-size="34"
+    font-weight="700"
+    fill="url(#logoGradient)"
+  >&lt;kkn/&gt;</text>
 </svg>
