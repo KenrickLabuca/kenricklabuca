@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0)
+  const [isTestimonialPaused, setIsTestimonialPaused] = useState(false)
 
   // Hardcoded projects - no backend needed
   const projects = [
@@ -148,6 +150,25 @@ export default function Home() {
       rating: 5,
     },
   ]
+
+  const nextTestimonial = () => {
+    setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length)
+  }
+
+  const prevTestimonial = () => {
+    setCurrentTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
+
+  // Auto-slide testimonials; pause while hovered
+  useEffect(() => {
+    if (testimonials.length === 0 || isTestimonialPaused) return
+
+    const interval = setInterval(() => {
+      setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length)
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [testimonials.length, isTestimonialPaused])
 
   // Show only first 3 projects on homepage
   const featuredProjects = projects.slice(0, 3)
@@ -363,7 +384,7 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -373,38 +394,71 @@ export default function Home() {
             <Quote className="w-10 h-10 text-primary-500" />
             Testimonials
           </motion.h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
+
+          <div
+            className="relative"
+            onMouseEnter={() => setIsTestimonialPaused(true)}
+            onMouseLeave={() => setIsTestimonialPaused(false)}
+          >
+            <div className="overflow-hidden rounded-lg">
               <motion.div
-                key={testimonial.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+                key={currentTestimonialIndex}
+                initial={{ opacity: 0, x: 60 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                className="bg-white dark:bg-gray-800 p-6 md:p-8 shadow-lg"
               >
                 <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
+                  {[...Array(testimonials[currentTestimonialIndex].rating)].map((_, i) => (
                     <span key={i} className="text-yellow-400 text-lg">★</span>
                   ))}
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 italic">
-                  "{testimonial.content}"
+                <p className="text-gray-600 dark:text-gray-400 mb-6 italic min-h-[6rem]">
+                  "{testimonials[currentTestimonialIndex].content}"
                 </p>
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                   <h4 className="font-bold text-gray-900 dark:text-gray-100">
-                    {testimonial.name}
+                    {testimonials[currentTestimonialIndex].name}
                   </h4>
                   <p className="text-sm text-primary-500">
-                    {testimonial.position}
+                    {testimonials[currentTestimonialIndex].position}
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {testimonial.company}
+                    {testimonials[currentTestimonialIndex].company}
                   </p>
                 </div>
               </motion.div>
-            ))}
+            </div>
+
+            <button
+              onClick={prevTestimonial}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 md:-translate-x-5 z-10 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:scale-110 transition-transform border border-gray-200 dark:border-gray-700"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-900 dark:text-gray-100" />
+            </button>
+            <button
+              onClick={nextTestimonial}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 md:translate-x-5 z-10 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:scale-110 transition-transform border border-gray-200 dark:border-gray-700"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-5 h-5 text-gray-900 dark:text-gray-100" />
+            </button>
+
+            <div className="flex justify-center gap-2 mt-6">
+              {testimonials.map((testimonial, index) => (
+                <button
+                  key={testimonial.id}
+                  onClick={() => setCurrentTestimonialIndex(index)}
+                  className={`h-2.5 rounded-full transition-all ${
+                    index === currentTestimonialIndex
+                      ? 'w-8 bg-primary-500'
+                      : 'w-2.5 bg-gray-300 dark:bg-gray-600 hover:bg-primary-400'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
