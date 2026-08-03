@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Facebook, Github, Linkedin, Mail, Code, Download, Quote, ChevronLeft, ChevronRight, Image as ImageIcon, Wrench } from 'lucide-react'
+import { ArrowRight, Facebook, Github, Linkedin, Mail, Code, Download, Quote, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import ProjectModal from '../components/ProjectModal'
+import TechStack from '../components/TechStack'
 
 export default function Home() {
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0)
@@ -361,115 +362,12 @@ export default function Home() {
               Tools I use to design, build, and ship modern web experiences.
             </p>
           </motion.div>
-          
-          <div className="space-y-6">
-            {categories.map((category, categoryIndex) => (
-              <motion.div
-                key={category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: categoryIndex * 0.1 }}
-                className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800 bg-gradient-to-r from-primary-500/10 to-purple-500/10">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                    {category}
-                  </h3>
-                </div>
-                <div className="px-6 py-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                  {skillsByCategory[category]?.map((skill, index) => (
-                    <motion.div
-                      key={skill.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: (categoryIndex * 0.05) + (index * 0.03) }}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      className="flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-3 py-2 hover:border-primary-500 hover:bg-primary-50/60 dark:hover:bg-primary-900/30 transition-all cursor-default"
-                    >
-                      {skill.logo ? (
-                        <div className="w-6 h-6 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center flex-shrink-0">
-                          <img
-                            src={skill.logo}
-                            alt={skill.name}
-                            className="w-4 h-4 object-contain"
-                            onError={(e) => {
-                              e.target.style.display = 'none'
-                              if (e.target.parentElement?.nextSibling) {
-                                e.target.parentElement.nextSibling.style.display = 'inline'
-                              }
-                            }}
-                          />
-                        </div>
-                      ) : (
-                        <span className="text-base flex-shrink-0">{skill.icon || '💻'}</span>
-                      )}
-                      <span className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate">
-                        {skill.name}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
 
-          {/* Supporting Tools */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.35 }}
-            className="mt-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden"
-          >
-            <div className="px-6 py-5">
-              <div className="flex items-start gap-3 mb-5">
-                <div className="mt-0.5 p-2 rounded-lg bg-purple-100 dark:bg-purple-900/40">
-                  <Wrench className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                    Supporting Tools
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    Editors, AI helpers, and local tools I lean on while building.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                {supportingTools.map((tool, index) => (
-                  <motion.div
-                    key={tool.id}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 + index * 0.05 }}
-                    whileHover={{ y: -2 }}
-                    className="inline-flex items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-3 py-2"
-                  >
-                    <img
-                      src={tool.logo}
-                      alt={tool.name}
-                      className="w-4 h-4 object-contain"
-                      onError={(e) => {
-                        e.target.style.display = 'none'
-                      }}
-                    />
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-100">
-                      {tool.name}
-                    </span>
-                    {tool.badge && (
-                      <span className="ml-1 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">
-                        {tool.badge}
-                      </span>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+          <TechStack
+            skillsByCategory={skillsByCategory}
+            categories={categories}
+            supportingTools={supportingTools}
+          />
         </div>
       </section>
       <section className="py-20 px-4">
