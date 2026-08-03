@@ -14,7 +14,7 @@ export default function Footer() {
             <Link to="/" className="inline-block mb-4" aria-label="Go to home">
               <img
                 src="/images/logo.svg"
-                alt="Ken"
+                alt="kkn"
                 className="h-10 w-auto rounded-md object-contain"
               />
             </Link>
