@@ -14,7 +14,7 @@ export default function Home() {
       title: 'Portfolio Website',
       description: 'A modern, responsive portfolio website built with React and Tailwind CSS, featuring dark mode and smooth animations.',
       technologies: ['React', 'Tailwind CSS', 'Framer Motion'],
-      github_url: 'https://github.com',
+      github_url: 'https://github.com/KenrickLabuca',
       live_url: 'https://example.com',
       featured: true,
     },
@@ -23,7 +23,7 @@ export default function Home() {
       title: 'E-Commerce Platform',
       description: 'Full-stack e-commerce application with user authentication, product management, and payment integration.',
       technologies: ['React', 'Laravel', 'MySQL'],
-      github_url: 'https://github.com',
+      github_url: 'https://github.com/KenrickLabuca',
       live_url: 'https://example.com',
       featured: true,
     },
@@ -32,7 +32,7 @@ export default function Home() {
       title: 'Task Management App',
       description: 'A collaborative task management application with real-time updates and team collaboration features.',
       technologies: ['React', 'Firebase', 'JavaScript'],
-      github_url: 'https://github.com',
+      github_url: 'https://github.com/KenrickLabuca',
       live_url: 'https://example.com',
       featured: false,
     },
@@ -244,7 +244,7 @@ export default function Home() {
             </a>
 
             <a
-              href="https://github.com"
+              href="https://github.com/KenrickLabuca"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:scale-105 transition-transform"
