@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Github, ExternalLink, Code, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Github, ExternalLink, Code } from 'lucide-react'
+import ProjectModal from '../components/ProjectModal'
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null)
-  const [projectImageIndex, setProjectImageIndex] = useState(0)
 
   // Hardcoded projects - no backend needed
   const projects = [
@@ -69,32 +69,6 @@ export default function Projects() {
     },
   ]
 
-  const openProject = (project) => {
-    setSelectedProject(project)
-    setProjectImageIndex(0)
-  }
-
-  const closeProject = () => {
-    setSelectedProject(null)
-    setProjectImageIndex(0)
-  }
-
-  useEffect(() => {
-    if (!selectedProject) return
-
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') closeProject()
-    }
-
-    document.body.style.overflow = 'hidden'
-    window.addEventListener('keydown', onKeyDown)
-
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', onKeyDown)
-    }
-  }, [selectedProject])
-
   return (
     <div className="pt-24 pb-20 px-4">
       <div className="max-w-6xl mx-auto">
@@ -115,7 +89,7 @@ export default function Projects() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              onClick={() => openProject(project)}
+              onClick={() => setSelectedProject(project)}
               className="text-left bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all cursor-pointer"
             >
               <div className="h-48 bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center overflow-hidden">
@@ -133,7 +107,7 @@ export default function Projects() {
                 <div className="flex items-start justify-between mb-2 gap-2">
                   <h3 className="text-xl font-bold">{project.title}</h3>
                   {project.featured && (
-                    <span className="px-2 py-1 bg-yellow-500 text-white text-xs rounded shrink-0">
+                    <span className="px-2 py-1 text-xs rounded shrink-0 text-white bg-gradient-to-r from-primary-500 to-purple-600">
                       Featured
                     </span>
                   )}
@@ -183,165 +157,10 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Project Details Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-            onClick={closeProject}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 24, scale: 0.98 }}
-              transition={{ duration: 0.25 }}
-              className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-gray-900 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={closeProject}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/90 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 hover:scale-105 transition-transform"
-                aria-label="Close project details"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="relative bg-gray-100 dark:bg-gray-800">
-                <div className="relative h-64 md:h-80 flex items-center justify-center overflow-hidden">
-                  {selectedProject.images?.length ? (
-                    <img
-                      key={projectImageIndex}
-                      src={selectedProject.images[projectImageIndex]}
-                      alt={`${selectedProject.title} screenshot ${projectImageIndex + 1}`}
-                      className="max-h-full max-w-full object-contain"
-                    />
-                  ) : (
-                    <Code className="w-20 h-20 text-gray-400" />
-                  )}
-                </div>
-
-                {selectedProject.images?.length > 1 && (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setProjectImageIndex(
-                          (prev) =>
-                            (prev - 1 + selectedProject.images.length) %
-                            selectedProject.images.length
-                        )
-                      }
-                      className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/90 dark:bg-gray-800/90 shadow"
-                      aria-label="Previous image"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setProjectImageIndex(
-                          (prev) => (prev + 1) % selectedProject.images.length
-                        )
-                      }
-                      className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/90 dark:bg-gray-800/90 shadow"
-                      aria-label="Next image"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </>
-                )}
-
-                {selectedProject.images?.length > 1 && (
-                  <div className="flex gap-2 justify-center p-3 overflow-x-auto">
-                    {selectedProject.images.map((image, index) => (
-                      <button
-                        key={image}
-                        type="button"
-                        onClick={() => setProjectImageIndex(index)}
-                        className={`h-14 w-20 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
-                          index === projectImageIndex
-                            ? 'border-primary-500'
-                            : 'border-transparent opacity-70 hover:opacity-100'
-                        }`}
-                      >
-                        <img
-                          src={image}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="p-6 md:p-8">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-2xl md:text-3xl font-bold">
-                    {selectedProject.title}
-                  </h3>
-                  {selectedProject.featured && (
-                    <span className="px-2 py-1 bg-yellow-500 text-white text-xs rounded shrink-0 mt-2">
-                      Featured
-                    </span>
-                  )}
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  {selectedProject.description}
-                </p>
-                {selectedProject.details && (
-                  <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                    {selectedProject.details}
-                  </p>
-                )}
-
-                <div className="mb-6">
-                  <h4 className="font-semibold mb-2">Technologies</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies?.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-sm rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  {selectedProject.github_url && (
-                    <a
-                      href={selectedProject.github_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:opacity-90 transition-opacity"
-                    >
-                      <Github className="w-4 h-4" />
-                      View Code
-                    </a>
-                  )}
-                  {selectedProject.live_url && (
-                    <a
-                      href={selectedProject.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-500 text-white hover:bg-primary-600 transition-colors"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </div>
   )
 }
