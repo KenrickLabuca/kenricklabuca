@@ -125,10 +125,10 @@ export default function Home() {
   const testimonials = [
     {
       id: 1,
-      name: 'John Doe',
-      position: 'Project Manager',
-      company: 'Tech Solutions Inc.',
-      content: 'Kenrick is an exceptional developer who consistently delivers high-quality work. His attention to detail and problem-solving skills are outstanding.',
+      name: 'Christopher Perez',
+      position: 'Team Leader',
+      company: 'Proweaver, Inc.',
+      content: 'I’ve had the pleasure of working with Kenrick on our team, and he’s someone I know I can always count on. He consistently puts in the effort, delivers quality work, and is a reliable teammate who’s always willing to help. On top of that, he’s easy to work with and brings a positive energy that genuinely brightens the team’s day. I’m grateful to have him on the team and look forward to seeing all that he’ll accomplish.',
       rating: 5,
     },
     {
