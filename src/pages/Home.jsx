@@ -152,6 +152,12 @@ export default function Home() {
       alt: 'Gallery Image 1',
     },
     {
+      id: 5,
+      src: '/images/Month%20of%20July.png',
+      title: 'Month of July - Highest Conversion',
+      alt: 'Month of July certificate',
+    },
+    {
       id: 2,
       url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
       title: 'Project Screenshot 2',
