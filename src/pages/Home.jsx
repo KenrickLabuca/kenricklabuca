@@ -146,12 +146,6 @@ export default function Home() {
   // Gallery images - add your image URLs here
   const galleryImages = [
     {
-      id: 1,
-      src: '/images/Highest_number_of_conversion.png',
-      title: 'Highest Number of Conversion',
-      alt: 'Gallery Image 1',
-    },
-    {
       id: 5,
       src: '/images/Month%20of%20July.png',
       title: 'Month of July - Highest Conversion',
