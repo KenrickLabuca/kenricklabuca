@@ -158,6 +158,12 @@ export default function Home() {
       alt: 'Month of July certificate',
     },
     {
+      id: 6,
+      src: '/images/Month%20of%20November.png',
+      title: 'Month of November - Highest Conversion',
+      alt: 'Month of November certificate',
+    },
+    {
       id: 2,
       url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
       title: 'Project Screenshot 2',
