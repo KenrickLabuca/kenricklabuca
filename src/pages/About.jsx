@@ -61,6 +61,7 @@ export default function About() {
     { id: 17, name: 'WordPress', proficiency: 90, category: 'Frontend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg' },
     // Backend
     { id: 5, name: 'Laravel', proficiency: 80, category: 'Backend', logo: 'https://cdn.simpleicons.org/laravel/FF2D20' },
+    { id: 19, name: 'PHP', proficiency: 85, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg' },
     { id: 6, name: 'MySQL', proficiency: 82, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
     { id: 7, name: 'Firebase', proficiency: 75, category: 'Backend', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
     { id: 18, name: 'Amazon S3', proficiency: 75, category: 'Backend', logo: 'https://raw.githubusercontent.com/gilbarbara/logos/master/logos/aws-s3.svg' },
